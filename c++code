@@ -1,0 +1,38 @@
+class Solution {
+public:
+    vector<vector<string>> an;
+    bool cheak(int s1,int e,string &s)
+    {
+        while(s1<=e)
+        {
+            if(s[s1++]!=s[e--])
+            {
+                return false;
+            }
+            
+        }
+        return true;
+    }    
+        void make(int id,string &s,vector<string>v)
+        {
+            if(id==s.size())
+            {
+                an.push_back(v);
+                return;
+            }
+            for(int i=id;i<s.size();i++)
+            {
+                if(cheak(id,i,s))
+                {
+                    v.push_back(s.substr(id,i-id+1));
+                    make(i+1,s,v);
+                    v.pop_back();
+                }
+            }
+        }
+    vector<vector<string>> partition(string s) {
+        vector<string>v;
+        make(0,s,v);
+        return an;
+    }
+};
